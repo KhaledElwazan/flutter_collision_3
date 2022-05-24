@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // late Point point;
 
   List<Point> points = [];
-  int numberOfPoints = 15;
+  int numberOfPoints = 16;
 
   final int tilesPerRow = 30;
   final int tilesPerColumn = 50;
@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) {
           for (Point point in points) {
             point.move();
+            checkCollisionBetweenPoints();
           }
           return drawGrid(tileWidth, tileHeight);
         },
@@ -92,5 +93,19 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  void checkCollisionBetweenPoints() {
+    for (int i = 0; i < points.length; i++) {
+      for (int j = i + 1; j < points.length; j++) {
+        if (points[i].collidesWith(points[j])) {
+          points[i].reverseXDirection();
+          points[i].reverseYDirection();
+
+          points[j].reverseXDirection();
+          points[j].reverseYDirection();
+        }
+      }
+    }
   }
 }

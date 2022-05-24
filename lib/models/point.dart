@@ -52,4 +52,8 @@ class Point {
       reverseYDirection();
     }
   }
+
+  bool collidesWith(Point other) {
+    return x == other.x && y == other.y;
+  }
 }
